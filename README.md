@@ -20,6 +20,3 @@ Only usable in the Antaroth Map. Using of commands outside map will return undef
 - Back Stun
 - Right Safe , OUT safe (Right before the SPIN attack, normally you'd know which side is safe after the spin)
 - Left Safe , IN safe (Right before the SPIN attack, normally you'd know which side is safe after the spin)
-
-# Screenshots
-<img src=https://i.imgur.com/ZvPb0zB.gif>
