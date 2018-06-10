@@ -1,0 +1,12 @@
+{
+	"files": {
+		"index.js": "e7b974f3f1063dc040f2047937ee1a553abb679a43fa09823f53e3afaac8d9f4",
+		"README.md": "be9ee3939d46d3be8b61f1914913306a595d73e0c7386dc9af916749e073b3f3"
+	},
+	"defs": {
+		"S_LOAD_TOPO": 1,
+		"C_CHAT": 1,
+		"S_CHAT": 1,
+		"S_ACTION_STAGE": 5
+	}
+}
