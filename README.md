@@ -22,4 +22,4 @@ Only usable in the Antaroth Map. Using of commands outside map will return undef
 - Left Safe , IN safe (Right before the SPIN attack, normally you'd know which side is safe after the spin)
 
 # Screenshots
-<img src=https://cdn.discordapp.com/attachments/454260974250098688/454263655962378242/red_magic_cw.gif>
+<img src=https://i.imgur.com/ZvPb0zB.gif>
