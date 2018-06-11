@@ -39,7 +39,7 @@ module.exports = function antaroth_guide(dispatch) {
 	const command = Command(dispatch);
 	let hooks = [],
 		sendToParty = false,
-		enabled = true
+		enabled = true,
 		insidemap = false,
 	   	streamenabled = false;
 		
@@ -126,7 +126,7 @@ module.exports = function antaroth_guide(dispatch) {
 				else if (ThirdBossTwoUp[event.skill])
 				{
 					let now = Date.now();
-					if((now - lasttwoup) < 2500) // usually <2350
+					if((now - lasttwoup) < 3000) // usually <2350
 					{
 						sendMessage(ThirdBossTwoUp[event.skill].msg /* + " : " + String(now - lasttwoup)*/ );
 					}
