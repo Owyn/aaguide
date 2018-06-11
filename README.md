@@ -12,11 +12,11 @@ Please report any issues to me either here or on discord :)
 # Commands 
 Only usable in the Antaroth Map. Using of commands outside map will return undefine command.
 - !aaguide to toggle module (DEFAULT: ON)
-- !toparty to toggle party notice (DEFAULT: SELF ONLY (In chat))
+- !toparty to toggle party notice, you must be the leader (DEFAULT: SELF ONLY (In notice chat))
 - !toparty stream - to toggle messages being sent only to proxy channel
 
 # Attacks announced
 - Front, Back stun
 - Back Stun
-- Right Safe , OUT safe (Right before the SPIN attack, normally you'd know which side is safe after the spin)
-- Left Safe , IN safe (Right before the SPIN attack, normally you'd know which side is safe after the spin)
+- Right Safe , OUT safe (Right before the SPIN attack, normally you'd know which side is safe during the spin)
+- Left Safe , IN safe (Right before the SPIN attack, normally you'd know which side is safe during the spin)
