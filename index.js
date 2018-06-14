@@ -4,28 +4,28 @@ const Command = require('command');
 const mapID = [9720, 9920];						// MAP ID to input [ Normal Mode , Hard Mode ]
 
 const ThirdBossActions = {						// Third Boss Attack Actions
-	1188037721: {msg: 'Front, Back stun ↓'},
-	1188038721: {msg: 'Front, Back stun ↓'}, // rage
-	1188037719: {msg: 'Right Safe →'},
-	1188038719: {msg: 'Right Safe →'}, // rage
-	1188037717: {msg: '← Left Safe'},
-	1188038717: {msg: '← Left Safe'} // rage
+	1188037721: {msg: 'Front, Back stun ↓', msg_ru: 'Передний, Задний ↓'},
+	1188038721: {msg: 'Front, Back stun ↓', msg_ru: 'Передний, Задний ↓'}, // rage
+	1188037719: {msg: 'Right Safe →', msg_ru: 'Право СЕЙФ →', sign_degrees: 90, sign_distance: 90},
+	1188038719: {msg: 'Right Safe →', msg_ru: 'Право СЕЙФ →', sign_degrees: 90, sign_distance: 90}, // rage
+	1188037717: {msg: '← Left Safe', msg_ru: '← Лево СЕЙФ', sign_degrees: 270, sign_distance: 90},
+	1188038717: {msg: '← Left Safe', msg_ru: '← Лево СЕЙФ', sign_degrees: 270, sign_distance: 90} // rage
 };
 
 const ThirdBossActionsHM = {					// Third Boss Attack Actions Hard Mode
-	1201144921: {msg: 'Front, back stun ↓'},
-	1201145921: {msg: 'Front, back stun ↓'}, // rage
-	1201144919: {msg: 'Right Safe → , OUT safe'},
-	1201145919: {msg: 'Right Safe → , OUT safe'}, // rage
-	1201144917: {msg: '← Left Safe , IN safe'},
-	1201145917: {msg: '← Left Safe , IN safe'} // rage
+	1201144921: {msg: 'Front, back stun ↓', msg_ru: 'Передний, Задний ↓'},
+	1201145921: {msg: 'Front, back stun ↓', msg_ru: 'Передний, Задний ↓'}, // rage
+	1201144919: {msg: 'Right Safe → , OUT safe', msg_ru: 'Право СЕЙФ → , Наружу СЕЙФ', sign_degrees: 90, sign_distance: 190},
+	1201145919: {msg: 'Right Safe → , OUT safe', msg_ru: 'Право СЕЙФ → , Наружу СЕЙФ', sign_degrees: 90, sign_distance: 190}, // rage
+	1201144917: {msg: '← Left Safe , IN safe', msg_ru: '← Лево СЕЙФ , Внутрь СЕЙФ', sign_degrees: 270, sign_distance: 90},
+	1201145917: {msg: '← Left Safe , IN safe', msg_ru: '← Лево СЕЙФ , Внутрь СЕЙФ', sign_degrees: 270, sign_distance: 90} // rage
 };
 
 const ThirdBossTwoUp = {
-	1188037712: {msg: 'Back stun ↓'},
-	1188038712: {msg: 'Back stun ↓'}, // rage
-	1201144912: {msg: 'Back stun ↓'}, // HM
-	1201145912: {msg: 'Back stun ↓'} // HM Rage
+	1188037712: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'},
+	1188038712: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'}, // rage
+	1201144912: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'}, // HM
+	1201145912: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'} // HM Rage
 };
 
 /*const ToTest = {						// Third Boss Attack Actions
@@ -38,11 +38,31 @@ const ThirdBossTwoUp = {
 module.exports = function antaroth_guide(dispatch) {
 	const command = Command(dispatch);
 	let hooks = [],
+		bossCurLocation,
+		bossCurAngle,
+		uid = 999999999,
 		sendToParty = false,
 		enabled = true,
+		itemhelper = true,
 		insidemap = false,
 	   	streamenabled = false;
 		
+	if(dispatch.base.region == "ru")
+	{
+		for (let prop in ThirdBossActions)
+		{
+			ThirdBossActions[prop].msg = ThirdBossActions[prop].msg_ru;
+		}
+		for (let prop in ThirdBossActionsHM)
+		{
+			ThirdBossActionsHM[prop].msg = ThirdBossActionsHM[prop].msg_ru;
+		}
+		for (let prop in ThirdBossTwoUp)
+		{
+			ThirdBossTwoUp[prop].msg = ThirdBossTwoUp[prop].msg_ru;
+		}
+	}
+	
 	dispatch.hook('S_LOAD_TOPO', 1, (event) => {
 		if (event.zone === mapID[0]) 
 		{								
@@ -68,12 +88,19 @@ module.exports = function antaroth_guide(dispatch) {
 		command.message('Antaroth Guide '+(enabled ? 'Enabled' : 'Disabled') + '.');
 	});
 	
+	command.add('itemhelp', () => {
+		if(!insidemap) { command.message('You must be inside Antaroth'); return; }
+		itemhelper = !itemhelper;
+		command.message('Signs on safe spots '+(itemhelper ? 'Enabled' : 'Disabled') + '.');
+	});
+	
 	command.add('toparty', (arg) => {
 		if(!insidemap) { command.message('You must be inside Antaroth'); return; }
 		if(arg === "stream")
 		{
 			streamenabled = !streamenabled;
 			sendToParty = false;
+			itemhelper = false;
 			command.message((streamenabled ? 'Stream mode Enabled' : 'Stream mode Disabled'));
 		}
 		else
@@ -107,6 +134,37 @@ module.exports = function antaroth_guide(dispatch) {
 		}
 	}
 	
+	function SpawnThing(degrees, radius)
+	{
+		let r = null, rads = null, finalrad = null, pos = null;
+		r = bossCurAngle - Math.PI;
+		rads = (degrees * Math.PI/180);
+		finalrad = r - rads;
+		bossCurLocation.x = bossCurLocation.x + radius * Math.cos(finalrad);
+		bossCurLocation.y = bossCurLocation.y + radius * Math.sin(finalrad);
+		
+		dispatch.toClient('S_SPAWN_BUILD_OBJECT', 2, {
+			gameId : uid,
+			itemId : 1,
+			loc : bossCurLocation,
+			w : r,
+			unk : 0,
+			ownerName : 'SAFE SPOT',
+			message : 'SAFE'
+		});
+		
+		setTimeout(DespawnThing, 5000, uid);
+		uid--;
+	}
+	
+	function DespawnThing(uid_arg)
+	{
+		dispatch.toClient('S_DESPAWN_BUILD_OBJECT', 2, {
+				gameId : uid_arg,
+				unk : 0
+			});
+	}
+	
 	let lasttwoup = 0;
 	function load()
 	{
@@ -118,10 +176,22 @@ module.exports = function antaroth_guide(dispatch) {
 				if (ThirdBossActions[event.skill])
 				{
 					sendMessage(ThirdBossActions[event.skill].msg);
+					if(itemhelper && typeof ThirdBossActions[event.skill].sign_degrees !== "undefined")
+					{
+						bossCurLocation = event.loc;
+						bossCurAngle = event.w;
+						SpawnThing(ThirdBossActions[event.skill].sign_degrees, ThirdBossActions[event.skill].sign_distance)
+					}
 				}
 				else if (ThirdBossActionsHM[event.skill])
 				{
 					sendMessage(ThirdBossActionsHM[event.skill].msg);
+					if(itemhelper && typeof ThirdBossActionsHM[event.skill].sign_degrees !== "undefined")
+					{
+						bossCurLocation = event.loc;
+						bossCurAngle = event.w;
+						SpawnThing(ThirdBossActionsHM[event.skill].sign_degrees, ThirdBossActionsHM[event.skill].sign_distance)
+					}
 				}
 				else if (ThirdBossTwoUp[event.skill])
 				{
