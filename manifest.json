@@ -1,13 +1,15 @@
 {
 	"files": {
-		"index.js": "83b29a0ddb63555efa1926e3adba28c1327225d212e93c3cea222d309155aca0",
-		"README.md": "61d56645e1a2d8a93e99f0ff5b3c52ebd9f89353c5dd94f92fc545dc1fa851d2",
+		"index.js": "f5cfae9dd4325e52ba73e6f48d90042f82e377a5a9f3636848530e9bd423db38",
+		"README.md": "55670ff9afe463f1e63d6fd2346c9ab1d330be2412d705c7aef39643401cb286",
 		"module.json": "4f3f7e23624305c7392fa16fd6c09dacc6e482434609cb2c40228ed52eae0c1b"
 	},
 	"defs": {
 		"S_LOAD_TOPO": 1,
 		"C_CHAT": 1,
 		"S_CHAT": 1,
-		"S_ACTION_STAGE": 5
+		"S_ACTION_STAGE": 5,
+		"S_SPAWN_BUILD_OBJECT": 2,
+		"S_DESPAWN_BUILD_OBJECT": 2
 	}
 }
