@@ -19,8 +19,8 @@ Only usable in the Antaroth Map. Using of commands outside map will return undef
 # Attacks announced
 - Front, Back stun
 - Back Stun
-- Right Safe , OUT safe (Right before the SPIN attack, normally you'd know which side is safe after the spin)
-- Left Safe , IN safe (Right before the SPIN attack, normally you'd know which side is safe after the spin)
+- Right Safe , OUT safe (Right before the SPIN attack, normally you'd know which side is safe during the spin)
+- Left Safe , IN safe (Right before the SPIN attack, normally you'd know which side is safe during the spin)
 
 # Notes
 - Left/Right message is announced from Boss POV (aka for DPS guys) - all guides do the same (rk9 guide for last boss for example), so tanks would have to do the opposite, it's not hard, just use itemhelp signs which are placed in safe spots (or your brain lol).
