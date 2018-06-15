@@ -196,9 +196,9 @@ module.exports = function antaroth_guide(dispatch) {
 				else if (ThirdBossTwoUp[event.skill])
 				{
 					let now = Date.now();
-					if((now - lasttwoup) < 3000) // usually <2350
+					if((now - lasttwoup) < 3500) // either ~2100 or ~2500, fake calls are at 2980 (always followed up by 3rd two-up and a stun), but ~3200 gives stuns, especially if you rotate him
 					{
-						sendMessage(ThirdBossTwoUp[event.skill].msg /* + " : " + String(now - lasttwoup)*/ );
+						sendMessage(ThirdBossTwoUp[event.skill].msg  + " : " + String(now - lasttwoup) );
 					}
 					lasttwoup = now;
 				}
