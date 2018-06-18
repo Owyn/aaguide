@@ -22,6 +22,9 @@ Only usable in the Antaroth Map. Using of commands outside map will return undef
 - Right Safe , OUT safe (Right before the SPIN attack, normally you'd know which side is safe during the spin)
 - Left Safe , IN safe (Right before the SPIN attack, normally you'd know which side is safe during the spin)
 
+<img src=http://u.cubeupload.com/Owyn/ItemHelper.jpg>
+
 # Notes
 - Left/Right message is announced from Boss POV (aka for DPS guys) - all guides do the same (rk9 guide for last boss for example), so tanks would have to do the opposite, it's not hard, just use itemhelp signs which are placed in safe spots (or your brain lol).
-- To change any message - edit index.js with notepad and then rename\delate module.json so it won't autoupdate to how it was before
+- To change any message - edit index.js with notepad and then rename\delete module.json so it won't autoupdate to how it was before
+
