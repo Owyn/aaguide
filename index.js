@@ -4,36 +4,14 @@ const Command = require('command');
 const mapID = [9720, 9920];						// MAP ID to input [ Normal Mode , Hard Mode ]
 
 const ThirdBossActions = {						// Third Boss Attack Actions
-	1188037721: {msg: 'Front, Back stun ↓', msg_ru: 'Передний, Задний ↓'},
-	1188038721: {msg: 'Front, Back stun ↓', msg_ru: 'Передний, Задний ↓'}, // rage
-	1188037719: {msg: 'Right Safe →', msg_ru: 'Право СЕЙФ →', sign_degrees: 90, sign_distance: 90},
-	1188038719: {msg: 'Right Safe →', msg_ru: 'Право СЕЙФ →', sign_degrees: 90, sign_distance: 90}, // rage
-	1188037717: {msg: '← Left Safe', msg_ru: '← Лево СЕЙФ', sign_degrees: 270, sign_distance: 90},
-	1188038717: {msg: '← Left Safe', msg_ru: '← Лево СЕЙФ', sign_degrees: 270, sign_distance: 90} // rage
-};
-
-const ThirdBossActionsHM = {					// Third Boss Attack Actions Hard Mode
-	1201144921: {msg: 'Front, back stun ↓', msg_ru: 'Передний, Задний ↓'},
-	1201145921: {msg: 'Front, back stun ↓', msg_ru: 'Передний, Задний ↓'}, // rage
-	1201144919: {msg: 'Right Safe → , OUT safe', msg_ru: 'Право СЕЙФ → , Наружу СЕЙФ', sign_degrees: 90, sign_distance: 190},
-	1201145919: {msg: 'Right Safe → , OUT safe', msg_ru: 'Право СЕЙФ → , Наружу СЕЙФ', sign_degrees: 90, sign_distance: 190}, // rage
-	1201144917: {msg: '← Left Safe , IN safe', msg_ru: '← Лево СЕЙФ , Внутрь СЕЙФ', sign_degrees: 270, sign_distance: 90},
-	1201145917: {msg: '← Left Safe , IN safe', msg_ru: '← Лево СЕЙФ , Внутрь СЕЙФ', sign_degrees: 270, sign_distance: 90} // rage
+	113: {msg: 'Front, Back stun ↓', msg_ru: 'Передний, Задний ↓'},
+	111: {msg: 'Right Safe → , OUT safe', msg_ru: 'Право СЕЙФ → , Наружу СЕЙФ', sign_degrees: 90, sign_distance: 190},
+	109: {msg: '← Left Safe , IN safe', msg_ru: '← Лево СЕЙФ , Внутрь СЕЙФ', sign_degrees: 270, sign_distance: 110}
 };
 
 const ThirdBossTwoUp = {
-	1188037712: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'},
-	1188038712: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'}, // rage
-	1201144912: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'}, // HM
-	1201145912: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'} // HM Rage
+	104: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'}
 };
-
-/*const ToTest = {						// Third Boss Attack Actions
-	1188037809: {msg: 'Red Aura ↓'},
-	1188038716: {msg: 'Red Thrust ↓'},
-	1201145009: {msg: 'Red Aura ↓'}, // HM
-	1201144916: {msg: 'Red Thrust ↓'} // HM
-};*/
 
 module.exports = function antaroth_guide(dispatch) {
 	const command = Command(dispatch);
@@ -41,6 +19,7 @@ module.exports = function antaroth_guide(dispatch) {
 		bossCurLocation,
 		bossCurAngle,
 		uid = 999999999,
+		uid2 = 899999999;
 		sendToParty = false,
 		enabled = true,
 		itemhelper = true,
@@ -52,10 +31,6 @@ module.exports = function antaroth_guide(dispatch) {
 		for (let prop in ThirdBossActions)
 		{
 			ThirdBossActions[prop].msg = ThirdBossActions[prop].msg_ru;
-		}
-		for (let prop in ThirdBossActionsHM)
-		{
-			ThirdBossActionsHM[prop].msg = ThirdBossActionsHM[prop].msg_ru;
 		}
 		for (let prop in ThirdBossTwoUp)
 		{
@@ -110,7 +85,7 @@ module.exports = function antaroth_guide(dispatch) {
 			command.message((sendToParty ? 'Antaroth Guide - Messages will be sent to the party' : 'Antaroth Guide - Only you will see messages in chat'));
 		}
 	});
-
+	
 	function sendMessage(msg)
 	{
 		if (sendToParty) 
@@ -153,66 +128,73 @@ module.exports = function antaroth_guide(dispatch) {
 			message : 'SAFE'
 		});
 		
-		setTimeout(DespawnThing, 5000, uid);
+		setTimeout(DespawnThing, 5000, uid, uid2);
 		uid--;
+		bossCurLocation.z = bossCurLocation.z - 100;
+		dispatch.toClient('S_SPAWN_DROPITEM', 6, {
+			gameId: uid2,
+			loc: bossCurLocation,
+			item: 98260,
+			amount: 1,
+			expiry: 6000,
+			owners: [{playerId: uid2}]
+		});
+		uid2++;
 	}
 	
-	function DespawnThing(uid_arg)
+	function DespawnThing(uid_arg, uid_arg2)
 	{
 		dispatch.toClient('S_DESPAWN_BUILD_OBJECT', 2, {
 				gameId : uid_arg,
 				unk : 0
 			});
+		dispatch.toClient('S_DESPAWN_DROPITEM', 4, {
+				gameId: uid_arg2
+			});
 	}
 	
-	let lasttwoup = 0;
+	let lasttwoup = 0, rotationdelaylast = 0, rotationdelay = 0, bossid = 0;
 	function load()
 	{
 		if(!hooks.length)
 		{
-			hook('S_ACTION_STAGE', 5, (event) => {
+			hook('S_CREATURE_ROTATE', 2, (event) => {
+				if(!lasttwoup) return;
+				rotationdelaylast = Date.now();
+				rotationdelay = event.time;
+			});
+			
+			hook('S_ACTION_STAGE', 6, (event) => {
 				if(!enabled || event.templateId !== 3000) return;
 				
-				if (ThirdBossActions[event.skill])
-				{
-					sendMessage(ThirdBossActions[event.skill].msg);
-					if(itemhelper && typeof ThirdBossActions[event.skill].sign_degrees !== "undefined")
-					{
-						bossCurLocation = event.loc;
-						bossCurAngle = event.w;
-						SpawnThing(ThirdBossActions[event.skill].sign_degrees, ThirdBossActions[event.skill].sign_distance)
-					}
-				}
-				else if (ThirdBossActionsHM[event.skill])
-				{
-					sendMessage(ThirdBossActionsHM[event.skill].msg);
-					if(itemhelper && typeof ThirdBossActionsHM[event.skill].sign_degrees !== "undefined")
-					{
-						bossCurLocation = event.loc;
-						bossCurAngle = event.w;
-						SpawnThing(ThirdBossActionsHM[event.skill].sign_degrees, ThirdBossActionsHM[event.skill].sign_distance)
-					}
-				}
-				else if (ThirdBossTwoUp[event.skill])
+				if (ThirdBossTwoUp[event.skill.id % 1000])
 				{
 					let now = Date.now();
-					if((now - lasttwoup) < 3500) // either ~2100 or ~2500, fake calls are at 2980 (always followed up by 3rd two-up and a stun), but ~3200 gives stuns, especially if you rotate him
+					if(now - rotationdelaylast > 1200) // ~890
 					{
-						sendMessage(ThirdBossTwoUp[event.skill].msg  + " : " + String(now - lasttwoup) );
+						rotationdelay = 0;
+					}
+					if(now - lasttwoup - rotationdelay < 2900) // ~2100-2600, fake calls are at 2900+ (followed by a 3rd two-up and a stun)
+					{
+						sendMessage(ThirdBossTwoUp[event.skill.id % 1000].msg /* + " : " + String(now - lasttwoup) + " - " + String(rotationdelay) + " = " + String(now - lasttwoup - rotationdelay)*/ );
 					}
 					lasttwoup = now;
 				}
-				/*else if (ToTest[event.skill])
+				else
 				{
-					sendMessage(ToTest[event.skill].msg);
-					var today = new Date();
-					var h = today.getHours();
-					var m = today.getMinutes();
-					var s = today.getSeconds();
-					command.message(h + ":" + m + ":" + s + " - " + String(event.skill));
-					console.log(h + ":" + m + ":" + s + " - " + JSON.stringify(event, null, 4));
-					console.log(ToTest[event.skill].msg);
-				}*/
+					lasttwoup = 0;
+					rotationdelaylast = 0;
+					if (ThirdBossActions[event.skill.id % 1000])
+					{
+						sendMessage(ThirdBossActions[event.skill.id % 1000].msg);
+						if(itemhelper && typeof ThirdBossActions[event.skill.id % 1000].sign_degrees !== "undefined")
+						{
+							bossCurLocation = event.loc;
+							bossCurAngle = event.w;
+							SpawnThing(ThirdBossActions[event.skill.id % 1000].sign_degrees, ThirdBossActions[event.skill.id % 1000].sign_distance)
+						}
+					}
+				}
 			});
 		}
 	}
