@@ -1,7 +1,7 @@
 {
 	"files": {
-		"index.js": "3c10a6e3ab336add1d44bd9dea5cc2e6577a593b940e7afad903b2f283b61b1a",
-		"README.md": "1591e1540900cf9eae119f5efdcd582fd9f6e86c8215df2567779d9ddccd9694",
+		"index.js": "a2fcf85ba5a9a2bfab5e08a64a0bfc091fb0e1ac68de0e05a93cabd7838983c6",
+		"README.md": "80cd28b7127a301a69cd65e66101db792aecdce33884dfe56160e5ea4a842960",
 		"module.json": "4f3f7e23624305c7392fa16fd6c09dacc6e482434609cb2c40228ed52eae0c1b"
 	},
 	"defs": {
@@ -10,6 +10,9 @@
 		"S_CHAT": 1,
 		"S_ACTION_STAGE": 5,
 		"S_SPAWN_BUILD_OBJECT": 2,
-		"S_DESPAWN_BUILD_OBJECT": 2
+		"S_DESPAWN_BUILD_OBJECT": 2,
+		"S_SPAWN_DROPITEM": 6,
+		"S_DESPAWN_DROPITEM": 6,
+		"S_CREATURE_ROTATE": 2
 	}
 }
