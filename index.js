@@ -159,7 +159,7 @@ module.exports = function antaroth_guide(dispatch) {
 		if(!hooks.length)
 		{
 			hook('S_CREATURE_ROTATE', 2, (event) => {
-				if(!lasttwoup) return;
+				if(!lasttwoup || !bossid.equals(event.gameId)) return;
 				rotationdelaylast = Date.now();
 				rotationdelay = event.time;
 			});
@@ -176,9 +176,10 @@ module.exports = function antaroth_guide(dispatch) {
 					}
 					if(now - lasttwoup - rotationdelay < 2900) // ~2100-2600, fake calls are at 2900+ (followed by a 3rd two-up and a stun)
 					{
-						sendMessage(ThirdBossTwoUp[event.skill.id % 1000].msg /* + " : " + String(now - lasttwoup) + " - " + String(rotationdelay) + " = " + String(now - lasttwoup - rotationdelay)*/ );
+						sendMessage(ThirdBossTwoUp[event.skill.id % 1000].msg /*+ " : " + String(now - lasttwoup) + " - " + String(rotationdelay) + " = " + String(now - lasttwoup - rotationdelay)*/ );
 					}
 					lasttwoup = now;
+					bossid = event.gameId;
 				}
 				else
 				{
