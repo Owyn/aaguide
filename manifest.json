@@ -1,6 +1,6 @@
 {
 	"files": {
-		"index.js": "a2fcf85ba5a9a2bfab5e08a64a0bfc091fb0e1ac68de0e05a93cabd7838983c6",
+		"index.js": "9a16dfbc8af9ba2e922b20d25b5eae7b68094f062e65562ce63aebffc3568ced",
 		"README.md": "80cd28b7127a301a69cd65e66101db792aecdce33884dfe56160e5ea4a842960",
 		"module.json": "4f3f7e23624305c7392fa16fd6c09dacc6e482434609cb2c40228ed52eae0c1b"
 	},
@@ -8,7 +8,7 @@
 		"S_LOAD_TOPO": 1,
 		"C_CHAT": 1,
 		"S_CHAT": 1,
-		"S_ACTION_STAGE": 6,
+		"S_ACTION_STAGE": 5,
 		"S_SPAWN_BUILD_OBJECT": 2,
 		"S_DESPAWN_BUILD_OBJECT": 2,
 		"S_SPAWN_DROPITEM": 6,
