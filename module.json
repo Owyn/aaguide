@@ -1,4 +1,5 @@
 {
-  "servers": ["https://raw.githubusercontent.com/Owyn/aaguide/master/"],
-  "supportUrl": "https://github.com/Owyn/aaguide/issues"
+	"disableAutoUpdate": false,
+	"servers": ["https://raw.githubusercontent.com/Owyn/aaguide/master/"],
+	"supportUrl": "https://github.com/Owyn/aaguide/issues"
 }
