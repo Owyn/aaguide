@@ -38,7 +38,7 @@ module.exports = function antaroth_guide(dispatch) {
 		}
 	}
 	
-	dispatch.hook('S_LOAD_TOPO', 1, (event) => {
+	dispatch.hook('S_LOAD_TOPO', 3, (event) => {
 		if (event.zone === mapID[0]) 
 		{								
 			insidemap = true;
