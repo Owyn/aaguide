@@ -19,7 +19,7 @@ module.exports = function antaroth_guide(dispatch) {
 		bossCurLocation,
 		bossCurAngle,
 		uid = 999999999,
-		uid2 = 899999999;
+		uid2 = 899999999,
 		sendToParty = false,
 		enabled = true,
 		itemhelper = true,
