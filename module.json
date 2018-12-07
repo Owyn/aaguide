@@ -1,5 +1,11 @@
 {
 	"disableAutoUpdate": false,
+	"name": "AA-Guide",
+	"author": "Owyn",
+	"description": "Antaroth’s Abyss guide for 3rd boss",
+	"options": {
+		"niceName": "AA-Guide"
+	},
 	"servers": ["https://raw.githubusercontent.com/Owyn/aaguide/master/"],
 	"supportUrl": "https://github.com/Owyn/aaguide/issues"
 }

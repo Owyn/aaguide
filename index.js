@@ -1,6 +1,5 @@
 /* Usable Sysbols ◎●←↑→↓↖↗↘↙ */
 
-const Command = require('command');
 const mapID = [9720, 9920];						// MAP ID to input [ Normal Mode , Hard Mode ]
 
 const ThirdBossActions = {						// Third Boss Attack Actions
@@ -14,7 +13,7 @@ const ThirdBossTwoUp = {
 };
 
 module.exports = function antaroth_guide(dispatch) {
-	const command = Command(dispatch);
+	const command = dispatch.command || dispatch.require.command;
 	let hooks = [],
 		bossCurLocation,
 		bossCurAngle,
@@ -159,12 +158,12 @@ module.exports = function antaroth_guide(dispatch) {
 		if(!hooks.length)
 		{
 			hook('S_CREATURE_ROTATE', 2, (event) => {
-				if(!lasttwoup || !bossid.equals(event.gameId)) return;
+				if(!lasttwoup || bossid !== event.gameId) return;
 				rotationdelaylast = Date.now();
 				rotationdelay = event.time;
 			});
 			
-			hook('S_ACTION_STAGE', dispatch.majorPatchVersion >= 75 ? 8 : 7, (event) => {
+			hook('S_ACTION_STAGE', 8, (event) => {
 				if(!enabled || event.templateId !== 3000) return;
 				
 				if (ThirdBossTwoUp[event.skill.id % 1000])
