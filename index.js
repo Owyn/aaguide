@@ -25,7 +25,7 @@ module.exports = function antaroth_guide(dispatch) {
 		insidemap = false,
 	   	streamenabled = false;
 		
-	if(dispatch.base.region == "ru")
+	if(dispatch.region == "ru")
 	{
 		for (let prop in ThirdBossActions)
 		{
