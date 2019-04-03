@@ -1,7 +1,7 @@
 {
 	"files": {
 		"README.md": "80cd28b7127a301a69cd65e66101db792aecdce33884dfe56160e5ea4a842960",
-		"index.js": "466e970540331b5aad28dd40b546384fde6ce6f1e56989118bb9a36c5eb229ae",
+		"index.js": "6331e336cb7d02f78e9a2ccb0a68b6de445619f87933cc293b15e501a046193a",
 		"module.json": "18cf8d62ecc5f4d276e3e7d6744b6f99ac9f4bcb6046cef4f7857503d27abede"
 	},
 	"defs": {
@@ -13,6 +13,6 @@
 		"S_DESPAWN_DROPITEM": 4,
 		"S_LOAD_TOPO": 3,
 		"S_SPAWN_BUILD_OBJECT": 2,
-		"S_SPAWN_DROPITEM": 6
+		"S_SPAWN_DROPITEM": 7
 	}
 }
