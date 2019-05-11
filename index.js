@@ -1,6 +1,6 @@
 /* Usable Sysbols ◎●←↑→↓↖↗↘↙ */
 
-const mapID = [9720, 9920];						// MAP ID to input [ Normal Mode , Hard Mode ]
+const mapID = [9720, 9920, 3017];						// MAP ID to input [ Normal Mode , Hard Mode ]
 
 const ThirdBossActions = {						// Third Boss Attack Actions
 	113: {msg: 'Front, Back stun ↓', msg_ru: 'Передний, Задний ↓'},
@@ -47,6 +47,11 @@ module.exports = function antaroth_guide(dispatch) {
 		else if (event.zone === mapID[1]) {
 			insidemap = true;
 			command.message('Welcome to Antaroth - Hard Mode');
+			load();
+		}
+		else if (event.zone === mapID[2]) {
+			insidemap = true;
+			command.message('Welcome to Antaroth - 7 man');
 			load();
 		} 
 		else

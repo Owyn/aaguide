@@ -5,7 +5,7 @@
 SCRIPT BY OWYN - For TERA
 Credits to teralove and soler91 and SHINOYX for their guides
 
-Call out attacks from Antaroth Abyss last boss including both NORMAL MODE & HARD MODE
+Call out attacks from Antaroth Abyss last boss including both NORMAL MODE & HARD MODE & 7-MAN MODE
 
 *Script automatically detects bosses and which dungeon hard or normal.
 
