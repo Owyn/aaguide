@@ -135,7 +135,7 @@ module.exports = function antaroth_guide(dispatch) {
 		setTimeout(DespawnThing, 5000, uid, uid2);
 		uid--;
 		//bossCurLocation.z = bossCurLocation.z - 100;
-		dispatch.toClient('S_SPAWN_DROPITEM', 7, {
+		dispatch.toClient('S_SPAWN_DROPITEM', 8, {
 			gameId: uid2,
 			loc: bossCurLocation,
 			item: 88850,
@@ -151,7 +151,7 @@ module.exports = function antaroth_guide(dispatch) {
 	{
 		dispatch.toClient('S_DESPAWN_BUILD_OBJECT', 2, {
 				gameId : uid_arg,
-				unk : 0
+				//unk : 0
 			});
 		dispatch.toClient('S_DESPAWN_DROPITEM', 4, {
 				gameId: uid_arg2
