@@ -105,9 +105,9 @@ module.exports = function antaroth_guide(dispatch) {
 		}
 		else 
 		{
-			dispatch.toClient('S_CHAT', 1, {
+			dispatch.toClient('S_CHAT', 3, {
 			channel: 21, //21 = p-notice, 1 = party
-			authorName: 'DG-Guide',
+			name: 'DG-Guide',
 			message: msg
 			});
 		}
