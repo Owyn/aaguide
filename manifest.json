@@ -1,12 +1,12 @@
 {
 	"files": {
 		"README.md": "be641047127514304ecf78570aa615396d7dcaacdc172b0403f35981957fbdfc",
-		"index.js": "b2e68e0a603676334ad2ac4a014773956d9d550d3663bc3dc64c8165aabdbda6",
+		"index.js": "ee748d8c90813e21d74937ba6f5bc98c089588b07db492d8358682f264a78140",
 		"module.json": "18cf8d62ecc5f4d276e3e7d6744b6f99ac9f4bcb6046cef4f7857503d27abede"
 	},
 	"defs": {
 		"C_CHAT": 1,
-		"S_ACTION_STAGE": 8,
+		"S_ACTION_STAGE": 9,
 		"S_CHAT": 3,
 		"S_CREATURE_ROTATE": 2,
 		"S_DESPAWN_BUILD_OBJECT": 2,

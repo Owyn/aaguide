@@ -169,7 +169,7 @@ module.exports = function antaroth_guide(dispatch) {
 				rotationdelay = event.time;
 			});
 			
-			hook('S_ACTION_STAGE', 8, (event) => {
+			hook('S_ACTION_STAGE', 9, (event) => {
 				if(!enabled || event.templateId !== 3000) return;
 				
 				if (ThirdBossTwoUp[event.skill.id % 1000])
