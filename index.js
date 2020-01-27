@@ -3,13 +3,13 @@
 const mapID = [9720, 9920, 3017];						// MAP ID to input [ Normal Mode , Hard Mode ]
 
 const ThirdBossActions = {						// Third Boss Attack Actions
-	113: {msg: 'Front, Back stun ↓', msg_ru: 'Передний, Задний ↓'},
-	111: {msg: 'Right Safe → , OUT safe', msg_ru: 'Право СЕЙФ → , Наружу СЕЙФ', sign_degrees: 90, sign_distance: 190},
-	109: {msg: '← Left Safe , IN safe', msg_ru: '← Лево СЕЙФ , Внутрь СЕЙФ', sign_degrees: 270, sign_distance: 110}
+	113: {msg: 'Front, Back stun', msg_ru: 'Передний, Задний'},
+	111: {msg: 'Right Safe , OUT safe', msg_ru: 'Право СЕЙФ , Наружу СЕЙФ', sign_degrees: 90, sign_distance: 190},
+	109: {msg: 'Left Safe , IN safe', msg_ru: 'Лево СЕЙФ , Внутрь СЕЙФ', sign_degrees: 270, sign_distance: 110}
 };
 
 const ThirdBossTwoUp = {
-	104: {msg: 'Back stun ↓', msg_ru: 'Задний ↓'}
+	104: {msg: 'Back stun', msg_ru: 'Задний'}
 };
 
 module.exports = function antaroth_guide(dispatch) {
